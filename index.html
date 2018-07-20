@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Taxa(s) de Cambio</title>
+
 	<link rel="stylesheet" type="text/css" href="dist/css/style.css">
 </head>
 <body>
@@ -23,20 +27,130 @@
 	</nav>
 
 	<main role="main" class="container">
+		<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+			<h1 class="display-4">Welcome</h1>
+			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae eaque, doloribus qui ullam necessitatibus deleniti architecto odit eum ad tempora, vitae porro assumenda magni. Voluptatem cum assumenda deleniti nostrum voluptas.</p>
+			</div>
 		<div class="row">
-			<div class="col-md-3 my-3 p-3 bg-white rounded box-shadow">
-				<h6 class="border-bottom border-gray pb-2 mb-0">Milennium Bim</h6>
+			<div class="col-md-3 bg-white rounded box-shadow">
+				<h6 class="">Milennium Bim</h6>
 				<div class="media text-muted pt-3">
-					<p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-						<strong class="d-block text-gray-dark">@username</strong>
-						Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-					</p>
+					<table class="table table-striped">
+						<thead>
+							<th>Moeda</th>
+							<th>Compra</th>
+							<th>Venda</th>
+						</thead>
+						<tbody id="bim">
+							<tr>
+								<td>USD</td>
+								<td>58.88</td>
+								<td>35.00</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<small class="d-block text-right mt-3">
-					<a href="#">All updates</a>
-				</small>
+			</div>
+			<div class="col-md-3 bg-white rounded box-shadow">
+				<h6 class="">Banco Unico</h6>
+				<div class="media text-muted pt-3">
+					<table class="table table-striped">
+						<thead>
+							<th>Moeda</th>
+							<th>Compra</th>
+							<th>Venda</th>
+						</thead>
+						<tbody id="unico">
+							<tr>
+								<td>USD</td>
+								<td>58.88</td>
+								<td>35.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-3 bg-white rounded box-shadow">
+				<h6 class="">Standard Bank</h6>
+				<div class="media text-muted pt-3">
+					<table class="table table-striped">
+						<thead>
+							<th>Moeda</th>
+							<th>Compra</th>
+							<th>Venda</th>
+						</thead>
+						<tbody id="standard">
+							<tr>
+								<td>USD</td>
+								<td>58.88</td>
+								<td>35.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-3 bg-white rounded box-shadow">
+				<h6 class="">BCI</h6>
+				<div class="media text-muted pt-3">
+					<table class="table table-striped">
+						<thead>
+							<th>Moeda</th>
+							<th>Compra</th>
+							<th>Venda</th>
+						</thead>
+						<tbody id="bci">
+							<tr>
+								<td>USD</td>
+								<td>58.88</td>
+								<td>35.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</main>
+	<script type="text/javascript">
+		function createTR (origin, data) {
+			var table = document.querySelector("#"+origin);
+			var tr = document.createElement("tr");
+			var tdBuy = document.createElement("td");
+			var tdSell = document.createElement("td");
+			var tdCurrency = document.createElement("td");
+
+			tdCurrency.textContent = data.name;
+			tdBuy.textContent = data.buy;
+			tdSell.textContent = data.sell;
+
+			tr.appendChild(tdCurrency);
+			tr.appendChild(tdBuy);
+			tr.appendChild(tdSell);
+
+			table.appendChild(tr);
+		}
+
+		function bank(name) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "./dist/json/"+name);
+
+			xhr.addEventListener("load", function () {
+				var erros = [];
+				if (xhr.status == 200) {
+					var result = xhr.responseText;
+					var data = JSON.parse(result);
+					console.log(data);
+
+					for(var i in data){
+						createTR(name, data[i]);
+					}
+				}
+			});
+			xhr.send();
+		}
+		bank("bim");
+		bank("bci");
+		bank("unico");
+		bank("standard");
+	</script>
 </body>
 </html>
