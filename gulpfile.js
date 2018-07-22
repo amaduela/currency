@@ -14,6 +14,10 @@ gulp.task('scss', function () {
 	gulp.src('src/scss/*.scss')
 		.pipe(sourcemaps.init())
 		.pipe(sass())
+		.on('error', notify.onError({
+			message: "Erro: <%= error.message %>",
+			title: "Sass Error"
+		}))
 		.pipe(cssnano())
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('dist/css/'));
