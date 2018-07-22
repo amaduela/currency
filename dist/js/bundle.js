@@ -43,7 +43,6 @@ function bank(name) {
 		if (xhr.status == 200) {
 			var result = xhr.responseText;
 			var data = JSON.parse(result);
-			console.log(data);
 
 			for(var i in data){
 				createTR(name, data[i]);
